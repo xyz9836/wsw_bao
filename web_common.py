@@ -567,6 +567,18 @@ def add_function():
         elif device_code == 321:
             return model_code
         return '不知道'
+    
+    # 获取设备密码
+    def get_device_root(sn, mac):
+        import hashlib
+        import base64
+        key = '%s%s%s' % (sn, mac, 'i8e%Fvj24nz024@d!c')
+        md5 = hashlib.md5(key.encode('utf-8')).digest()
+        passwd = base64.b64encode(md5).decode('utf-8')
+        passwd = passwd[0:8]
+        passwd = passwd.replace('+', '-')
+        passwd = passwd.replace('/', '_')
+        return passwd
 
     def int2ip(int_ip):
         return socket.inet_ntoa(struct.pack("I", int_ip))
